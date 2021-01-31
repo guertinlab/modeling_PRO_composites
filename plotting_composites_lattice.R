@@ -33,11 +33,11 @@ plot.pro.simulation.composites <- function(input,
 dynamic.pro.profile <- function(input, tau = 20,min.pk = 0, max.pk =1,
                                 dpk =0.001, gene.len = 1000, filename = 'dynamic_pro_model_density') {
     bp = seq(0,gene.len-1)
-    colnames(input) = c("time","Promoter", "Body")
+    colnames(input) = c("time","Pause", "Body")
     body.parameters = mapply(find.body.param,
                              bpeak = input$Body,
                              tau = tau,
-                             pausepeak = input$Promoter,
+                             pausepeak = input$Pause,
                              min.pk = min.pk,
                              max.pk = max.pk,
                              dpk = dpk)
@@ -45,7 +45,7 @@ dynamic.pro.profile <- function(input, tau = 20,min.pk = 0, max.pk =1,
     df.out = as.data.frame(matrix(NA, nrow=0, ncol = 3))
     bp = seq(0,gene.len-1)
     for (i in 1:length(input$Promoter)) {#need to revisit and use apply func.
-        x = get.pro.waveform(pausepeak=input$Promoter[i],
+        x = get.pro.waveform(pausepeak=input$Pause[i],
                              bpeak=input$Body[i],
                              bodypeak=input$bodyParam[i],
                              bp.seq=bp,
@@ -63,7 +63,7 @@ plot.changes.wrt <- function(input, filename = 'dynamic_pro_model') {
 #    reformat to lattice
     lat.b = cbind(input[,c(1,3)], 'Body')
     colnames(lat.b) = c('time', 'signal', 'region')
-    lat.p = cbind(input[,c(1:2)], 'Promoter')
+    lat.p = cbind(input[,c(1:2)], 'Pause')
     colnames(lat.p) = colnames(lat.b)
     lattice.result = rbind(lat.p, lat.b)
 #plot
