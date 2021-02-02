@@ -50,9 +50,9 @@ dynamic.pro.profile <- function(input, tau = 20,min.pk = 0, max.pk =1,
                              bodypeak=input$bodyParam[i],
                              bp.seq=bp,
                              tau=tau)$vec
-        x = as.data.frame(cbind(i, x, bp))
-        colnames(x) = colnames(df.out) 
-        df.out = rbind(df.out, x)
+        y = as.data.frame(cbind(i, x, bp))
+        colnames(y) = colnames(df.out) 
+        df.out = rbind(df.out, y)
     }
     plot.pro.simulation.composites(df.out, 
                                filename = filename) 
