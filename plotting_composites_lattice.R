@@ -66,6 +66,8 @@ plot.changes.wrt <- function(input, filename = 'dynamic_pro_model') {
     lat.p = cbind(input[,c(1:2)], 'Pause')
     colnames(lat.p) = colnames(lat.b)
     lattice.result = rbind(lat.p, lat.b)
+  colors.ramp = colorRampPalette(c( "pink", "#ff0000", "#cd0000", "#8b0000"),
+                                   bias=1, alpha = FALSE)(21)
 #plot
     pdf(paste0(filename, '.pdf'), width=4.43, height = 3.43)
     print(
