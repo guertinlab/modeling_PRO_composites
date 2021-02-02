@@ -44,7 +44,7 @@ dynamic.pro.profile <- function(input, tau = 20,min.pk = 0, max.pk =1,
     input$bodyParam = body.parameters
     df.out = as.data.frame(matrix(NA, nrow=0, ncol = 3))
     bp = seq(0,gene.len-1)
-    for (i in 1:length(input$Promoter)) {#need to revisit and use apply func.
+    for (i in 1:length(input$Pause)) {#need to revisit and use apply func.
         x = get.pro.waveform(pausepeak=input$Pause[i],
                              bpeak=input$Body[i],
                              bodypeak=input$bodyParam[i],
