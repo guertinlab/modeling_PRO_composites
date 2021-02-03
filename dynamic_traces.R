@@ -1,21 +1,23 @@
-
 library(deSolve)
 library(lattice)
 #import in misc. plotting and data parsing functions
-source('https://raw.githubusercontent.com/guertinlab/modeling_PRO_composites/main/plotting_composites_lattice.R')
+gitpage = 'https://raw.githubusercontent.com/guertinlab/'
+source(paste0(gitpage, 'modeling_PRO_composites/main/plotting_composites_lattice.R'))
 
-#model derived from our G&D paper (doi:10.1101/gad.328237.119):
+#model adapted from our G&D paper (doi:10.1101/gad.328237.119):
 #Declare differential equations as function
 #dP/dt = kinit - (kpre +krel)p
-#dB/dt = (lp/lb)*krel * p - kterm * b
+#dB/dt = krel * p - kelong * b
 #P is the first dependent variable, promoter density; dP is its derivative wrt time
 #B is the second dependent variable, body density; dB is its derivative wrt time
 
 density.prime <- function(t, initial.state, params = params)  {
     with(as.list(c(params, initial.state)), {
         dP = kinit - (kpre + krel)*P
-        dB = ((lp/lb)*krel)*P - kterm*B
-        res = c(dP, dB)
+        dB1 = (krel)*P - kelong*B1
+        dB2 = (kelong)*B1 - kelong*B2
+        dB3 = (kelong)*B2 - kelong*B3
+        res = c(dP, dB1, dB2, dB3)
         list(res)
     })
 }
